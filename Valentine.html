@@ -1,0 +1,156 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Just One Question 💘</title>
+
+<style>
+  body {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    overflow: hidden;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.96);
+    padding: 45px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    z-index: 2;
+  }
+
+  h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+
+  button {
+    font-size: 18px;
+    padding: 14px 35px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .yes {
+    background: #2ecc71;
+    color: white;
+  }
+
+  .no {
+    background: #e74c3c;
+    color: white;
+    position: absolute;
+  }
+
+  .heart {
+    position: absolute;
+    font-size: 20px;
+    animation: float 6s linear infinite;
+    opacity: 0.7;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(100vh); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateY(-10vh); opacity: 0; }
+  }
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop autoplay>
+  <source src="https://cdn.pixabay.com/audio/2023/03/12/audio_1c8cdef3f6.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+  <h1>
+    Since we’re already signed up to be each other’s Valentine for life,<br>
+    I just want to ask you one thing…<br><br>
+    Will you go on a date with me on Valentine’s Day? 💘
+  </h1>
+
+  <button class="yes" id="yesBtn">Yes 💚</button>
+  <button class="no" id="noBtn">No ❤️</button>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const music = document.getElementById("bgMusic");
+
+let yesScale = 1;
+
+/* Attempt to autoplay music immediately */
+window.addEventListener("load", () => {
+  music.volume = 0.6;
+  music.play().catch(()=>{ 
+    // Autoplay blocked on some browsers; nothing happens until user interacts
+  });
+});
+
+/* 😈 NO button escape + YES grows */
+noBtn.addEventListener("mouseenter", () => {
+  const x = Math.random() * (window.innerWidth - 120);
+  const y = Math.random() * (window.innerHeight - 60);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+
+  yesScale += 0.15;
+  yesBtn.style.transform = `scale(${yesScale})`;
+});
+
+/* 💖 YES clicked */
+yesBtn.addEventListener("click", () => {
+  document.body.innerHTML = `
+    <div class="card">
+      <h1>Aww Rahul… 💖</h1>
+      <p>
+        You really tried saying no, didn’t you? 😌 
+        <br><br>
+
+        Nice try Chincholkar 😌<br><br>
+        Resistance was cute though 😏<br><br>
+        <strong>
+          (Good thing you didn’t say no…  
+          otherwise you’d be sleeping in the office today 😈)
+        </strong>
+        <br><br>
+        <strong>
+          Valentine’s date: CONFIRMED 💖  
+          No cancellations. Finalized. Just us.
+        </strong>
+      </p>
+    </div>
+  `;
+});
+
+/* 💕 Floating hearts */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.fontSize = (14 + Math.random() * 20) + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 6000);
+}, 400);
+</script>
+
+</body>
+</html>
